@@ -6,7 +6,7 @@ Created in Ruby 2.1.2.
 
 Depends on the Prawn pdf library to generate pdf documents. 
 
-## Checkout the code
+## Running the code
 
 ```shell
 $ git clone https://github.com/santumahapatra/welcome-the-aliens
