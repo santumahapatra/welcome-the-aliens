@@ -1,4 +1,6 @@
 require_relative 'alien.rb'
+require_relative 'detail_generator.rb'
+require_relative 'generate_output.rb'
 
 class AlienInput
   attr_accessor :alien_values
@@ -6,7 +8,7 @@ class AlienInput
   def execute attribute_store
     alien_values = get_input attribute_store
     alien = Alien.new(alien_values)
-    generate_output alien
+    GenerateOutput.new.execute(alien)
   end
 
   def get_input attribute_store
@@ -36,7 +38,7 @@ class AlienInput
   def get_integer_input
    input = gets.chomp
    while input && !(input == input.to_i.to_s)
-    puts "Please insert an integer for the field" 
+    puts "Please insert an integer for the field:"
     input = gets.chomp
    end
    input = input.to_s
@@ -45,22 +47,10 @@ class AlienInput
   def get_string_input
     input = gets.chomp
     while input && (input == input.to_i.to_s)
-      puts "Please insert a string for the field" 
+      puts "Please insert a string for the field:"
       input = gets.chomp
     end
     input.to_s
-  end
-
-  def generate_output alien
-    detail_generator_class = nil
-    while detail_generator_class.nil?
-      puts "Which format do you want your file in :"
-      puts "Please enter 'plain text' or 'PDF'"
-      format_of_file = gets.chomp.to_s
-      detail_generator_class = DetailGenerator.descendants.detect { |klass| klass.respond_to format_of_file }
-    end
-
-    detail_generator_class.new(alien).export
   end
 
 end
